@@ -3,21 +3,19 @@ import { ApolloServer } from "apollo-server-express"
 import Express from "express"
 import { buildSchema } from "type-graphql"
 import { createConnection } from "typeorm"
-import { RegisterResolver } from "./modules/user/Register"
 import session from "express-session"
 import { redis } from "./redis"
 import connectRedis from "connect-redis"
 import cors from "cors"
-import { LoginResolver } from "./modules/user/Login"
-import { MeResolver } from "./modules/user/Me"
-import { ConfirmUserResolver } from "./modules/user/ConfirmUser"
+
 require('dotenv').config();
 
 const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, MeResolver, ConfirmUserResolver],
+    // grab all resolvers/ts files in modules folder
+    resolvers: [__dirname + "/modules/**/*.ts"],
     authChecker: ({ context: {req} }) => {
 
       if (req.session.userId) return true
