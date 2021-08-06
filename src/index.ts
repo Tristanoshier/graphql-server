@@ -10,13 +10,14 @@ import connectRedis from "connect-redis"
 import cors from "cors"
 import { LoginResolver } from "./modules/user/Login"
 import { MeResolver } from "./modules/user/Me"
+import { ConfirmUserResolver } from "./modules/user/ConfirmUser"
 require('dotenv').config();
 
 const main = async () => {
   await createConnection();
 
   const schema = await buildSchema({
-    resolvers: [RegisterResolver, LoginResolver, MeResolver],
+    resolvers: [RegisterResolver, LoginResolver, MeResolver, ConfirmUserResolver],
     authChecker: ({ context: {req} }) => {
 
       if (req.session.userId) return true
