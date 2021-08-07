@@ -1,28 +1,19 @@
 import "reflect-metadata"
 import { ApolloServer } from "apollo-server-express"
 import Express from "express"
-import { buildSchema } from "type-graphql"
 import { createConnection } from "typeorm"
 import session from "express-session"
 import { redis } from "./redis"
 import connectRedis from "connect-redis"
 import cors from "cors"
+import { createSchema } from "./utils/createSchema"
 
 require('dotenv').config();
 
 const main = async () => {
   await createConnection();
 
-  const schema = await buildSchema({
-    // grab all resolvers/ts files in modules folder
-    resolvers: [__dirname + "/modules/**/*.ts"],
-    authChecker: ({ context: {req} }) => {
-
-      if (req.session.userId) return true
-
-      return false
-    }
-  })
+  const schema = await createSchema()
 
   const apolloServer = new ApolloServer({
     schema,
