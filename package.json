@@ -38,11 +38,13 @@
     "@types/connect-redis": "^0.0.8",
     "@types/cors": "^2.8.12",
     "@types/express-session": "^1.15.11",
+    "@types/faker": "^5.5.7",
     "@types/graphql": "^14.5.0",
     "@types/ioredis": "^4.26.6",
     "@types/node": "^16.4.12",
     "@types/nodemailer": "^6.4.4",
     "@types/uuid": "^8.3.1",
+    "faker": "^5.5.3",
     "nodemon": "^2.0.12",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
